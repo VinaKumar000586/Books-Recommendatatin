@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommender System</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        /* Global Styles */
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #00a65a;
+            padding: 15px;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 24px;
+            color: white !important;
+        }
+
+        .nav-link {
+            color: white !important;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Heading */
+        h1 {
+            font-size: 45px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* Search Box */
+        .search-box {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+        }
+
+        .search-box button {
+            padding: 12px 20px;
+            background-color: #ff9800;
+            border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .search-box button:hover {
+            background-color: #e68900;
+        }
+
+        /* Book Card Styles */
+        .book-card {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .book-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .book-card img {
+            width: 100%;
+            height: 250px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .book-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .book-author {
+            font-size: 16px;
+            color: #bdbdbd;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">My Book Recommender</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/recommend">Recommend</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Book Recommendation Form -->
+    <div class="container mt-5">
+        <h1>Recommend Books</h1>
+
+        <form action="/recommend_books" method="post" class="search-box">
+            <input name="user_input" type="text" class="form-control" placeholder="Enter a book name...">
+            <button type="submit">Recommend</button>
+        </form>
+    </div>
+
+    <!-- Book Recommendations -->
+    {% if data %}
+    <div class="container mt-5">
+        <div class="row">
+            {% for i in data %}
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="book-card">
+                    <img src="{{ i[2] }}" alt="Book Cover">
+                    <div class="book-title">{{ i[0] }}</div>
+                    <div class="book-author">By {{ i[1] }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
